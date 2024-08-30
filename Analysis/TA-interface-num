@@ -1,0 +1,33 @@
+| TA                             | API Num          |
+|--------------------------------|------------------|
+| h264_decoder_ta                | 5                |
+| manufacturing_protection_ta    | 10               |
+| acipher_ta                     | 15               |
+| aes_ta                         | 18               |
+| comcast_crypto_gp_ta           | 11               |
+| opentee_digest_ta              | 11               |
+| keyvault_ta                    | 16               |
+| opentee_sign_ecdsa_ta          | 16               |
+| keystore_ta                    | 18               |
+| rockchip_storage_ta            | 12               |
+| secure_storage_ta              | 15               |
+| storage_test_ta                | 14               |
+| tls_signature_ta               | 18               |
+| tos_fiovb_ta                   | 13               |
+| avb_audio_ta                   | 12               |
+| drm_aes_crypto_ta              | 16               |
+| tee_provision_widevine_ta      | 14               |
+| hotp_ta                        | 17               |
+| opentee_trans_study_ta         | 14               |
+| nxp_imxat_ocram_ta             | 12               |
+| remoteproc_ta                  | 13               |
+| nxp_imxat_time_ta              | 16               |
+| opentee_omnishare_ta           | 26               |
+| save_key_ta                    | 29               |
+| tos_trusted_keys_ta            | 24               |
+| sedget_video_ta                | 22               |
+| gatekeeper_ta                  | 24               |
+| onlinepay_ta                   | 28               |
+| kevlar_cache_ta                | 29               |
+| wallet_ta                      | 36               |
+| opentee_pkcs11_ta              | 43               |
