@@ -1,3 +1,7 @@
-The CVE-analysis.csv file provides a detailed description of 138 CVEs related to TrustZone TEE, including vulnerability components, affect, CVSS Severity, brief description, whether Chameleon can mitigate them, and how it mitigates them.
+The CVE-analysis.csv/CVE-analysis.md file provides a detailed description of 138 CVEs related to TrustZone TEE, including vulnerability components, affect, CVSS Severity, brief description, whether Chameleon can mitigate them, and how it mitigates them.
 
 The TA-collection.md file shows all the open-source TA repositories we have gathered.
+
+The TA-interface-num.md file shows the number of service interfaces these open-source TAs invoke.
+
+The Lib-Service classify.md file shows the categorization results of kernel system calls in Chameleon prototype.
