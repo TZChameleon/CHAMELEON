@@ -111,7 +111,7 @@ enum page_type_t
 #define OPTEE_MSG_CMD_DO_BOTTOM_HALF	U(6)
 #define OPTEE_MSG_CMD_STOP_ASYNC_NOTIF	U(7)
 
-#define CFG_TEE_CORE_NB_CORE 2
+#define CFG_TEE_CORE_NB_CORE 8
 #define NUM_BASE_LEVEL_ENTRIES 4
 
 typedef uint64_t base_xlat_tbls_t[CFG_TEE_CORE_NB_CORE][NUM_BASE_LEVEL_ENTRIES];
@@ -158,7 +158,7 @@ typedef struct
 {
 	char uuid[UUID_STR_LENGTH];
 	uint64_t ptr_base_table;
-	uint64_t ttbr_table[4];
+	uint64_t ttbr_table[CFG_TEE_CORE_NB_CORE];
 	int is_used;
 } slice_ttbr_table_t;
 

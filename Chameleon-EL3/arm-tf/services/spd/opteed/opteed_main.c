@@ -280,12 +280,16 @@ static uintptr_t opteed_smc_handler(uint32_t smc_fid,
 
 	if (smc_fid == TEESMC_OPTEED_SLICE_TRAP)
 	{
+		// NOTICE("smc_fid = 0x%x\n", smc_fid);
 		uint64_t end_cycle = read_cntpct_el0();
+
+		// NOTICE("TEESMC_OPTEED_SLICE_TRAP\n");
 
 		SMC_RET1(&optee_ctx->cpu_ctx, end_cycle);
 	}
 	else if (smc_fid == TEESMC_OPTEED_SLICE_UPDATE_MAPPING)
 	{
+		// NOTICE("smc_fid = 0x%x\n", smc_fid);
 		page_desc_t *secure_page_desc = (page_desc_t *) x1;
 		/* Parse pa array */
 		paddr_t *pa_arr = (paddr_t *) x2;
@@ -298,6 +302,8 @@ static uintptr_t opteed_smc_handler(uint32_t smc_fid,
 		unsigned int idx = (unsigned int) data[1];
 		uint64_t desc = data[2];
 		uint32_t attr = (uint32_t) data[3];
+
+		// NOTICE("TEESMC_OPTEED_SLICE_UPDATE_MAPPING\n");
 
 		switch (page_table_update_is_valid(secure_page_desc, table_pa, orig_pa, new_pa))
 		{
@@ -320,6 +326,7 @@ static uintptr_t opteed_smc_handler(uint32_t smc_fid,
 	}
 	else if (smc_fid == TEESMC_OPTEED_SLICE_SET_TTBR)
 	{
+		// NOTICE("smc_fid = 0x%x\n", smc_fid);
 		char ta_uuid[UUID_STR_LENGTH];
 		memcpy(ta_uuid, (char *) x1, UUID_STR_LENGTH);
 		uint64_t *structs = (uint64_t *) x2;
@@ -347,6 +354,7 @@ static uintptr_t opteed_smc_handler(uint32_t smc_fid,
 	}
 	else if (smc_fid == TEESMC_OPTEED_SLICE_NEW_TABLE)
 	{
+		// NOTICE("smc_fid = 0x%x\n", smc_fid);
 		char ta_uuid[UUID_STR_LENGTH];
 		memcpy(ta_uuid, (char *) x1, UUID_STR_LENGTH);
 		uint64_t *structs = (uint64_t *) x2;
@@ -354,6 +362,8 @@ static uintptr_t opteed_smc_handler(uint32_t smc_fid,
 		base_xlat_tbls_t *slice_base_xlation_tables = (base_xlat_tbls_t *) structs[1];
 		uint64_t *phys_slice_ttbr_addr = (uint64_t *)structs[2];
 		uint32_t entry_idx = x3;
+
+		// NOTICE("TEESMC_OPTEED_SLICE_NEW_TABLE\n");
 
 		// get table_idx
 		int table_idx = -1;
@@ -366,10 +376,13 @@ static uintptr_t opteed_smc_handler(uint32_t smc_fid,
 	}
 	else if (smc_fid == TEESMC_OPTEED_SLICE_CLEAR_ENTRY)
 	{
+		// NOTICE("smc_fid = 0x%x\n", smc_fid);
 		char ta_uuid[UUID_STR_LENGTH];
 		memcpy(ta_uuid, (char *) x1, UUID_STR_LENGTH);
 		slice_ctx_t *global_slice_table_ctx = (slice_ctx_t *) x2;
 		uint32_t entry_idx = x3;
+
+		// NOTICE("TEESMC_OPTEED_SLICE_CLEAR_ENTRY\n");
 
 		if (check_uuid_bound(ta_uuid) == 0)
 		{
@@ -380,14 +393,20 @@ static uintptr_t opteed_smc_handler(uint32_t smc_fid,
 	}
 	else if (smc_fid == TEESMC_OPTEED_SLICE_START_COUNTER)
 	{
+		// NOTICE("smc_fid = 0x%x\n", smc_fid);
 		is_counter_started = 1;
 		smc_counter = 0;
+
+		// NOTICE("TEESMC_OPTEED_SLICE_START_COUNTER\n");
 
 		SMC_RET0(&optee_ctx->cpu_ctx);
 	}
 	else if (smc_fid == TEESMC_OPTEED_SLICE_STOP_COUNTER)
 	{
+		// NOTICE("smc_fid = 0x%x\n", smc_fid);
 		is_counter_started = 0;
+
+		// NOTICE("TEESMC_OPTEED_SLICE_STOP_COUNTER\n");
 
 		SMC_RET1(&optee_ctx->cpu_ctx, smc_counter);
 	}

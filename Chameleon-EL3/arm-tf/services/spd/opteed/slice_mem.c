@@ -259,7 +259,7 @@ slice_ttbr_table_t ttbr_table[CTX_STORAGE_SIZE][SESS_STORAGE_SIZE];
 
 void init_ttbr_table(void)
 {
-	WARN("sizeof(ttbr_table) = %ld\n", sizeof(ttbr_table));
+	// NOTICE("sizeof(ttbr_table) = %ld\n", sizeof(ttbr_table));
 	memset(ttbr_table, 0, sizeof(ttbr_table));
 }
 
@@ -272,16 +272,17 @@ int get_ctx_table_idx(slice_ctx_t *global_slice_table_ctx, char *uuid_str, int e
 	idx = mapping_to_uuid(uuid_str);
 	for (int i = 0; i < CTX_STORAGE_SIZE; i++)
 	{
-		// WARN("i = %d, is_used = %d\n", i, ttbr_table[idx][i].is_used);
 		if (ttbr_table[idx][i].is_used == 0)
 		{
+			// NOTICE("i = %d, is_used = %d\n", i, ttbr_table[idx][i].is_used);
 			ttbr_table[idx][i].is_used = 1;
 			memcpy(ttbr_table[idx][i].uuid, uuid_str, UUID_STR_LENGTH);
 			ttbr_table[idx][i].ptr_base_table = (uint64_t) slice_base_xlation_tables[entry_idx];
-			ttbr_table[idx][i].ttbr_table[0] = *(phys_slice_ttbr_addr + 4 * entry_idx + 0);
-			ttbr_table[idx][i].ttbr_table[1] = *(phys_slice_ttbr_addr + 4 * entry_idx + 1);
-			ttbr_table[idx][i].ttbr_table[2] = *(phys_slice_ttbr_addr + 4 * entry_idx + 2);
-			ttbr_table[idx][i].ttbr_table[3] = *(phys_slice_ttbr_addr + 4 * entry_idx + 3);
+			for (int j = 0; j < CFG_TEE_CORE_NB_CORE; j++)
+			{
+				ttbr_table[idx][i].ttbr_table[j] = *(phys_slice_ttbr_addr + CFG_TEE_CORE_NB_CORE * entry_idx + j);
+				// NOTICE("ttbr_table[%d][%d].ttbr_table[%d] = 0x%lx\n", idx, i, j, ttbr_table[idx][i].ttbr_table[j]);
+			}
 			global_slice_table_ctx[entry_idx].atf_idx = i;
 			break;
 		}
@@ -298,7 +299,7 @@ slice_ttbr_table_t *get_slice_ttbr_table_by_uuid(slice_ctx_t *global_slice_table
 	i = global_slice_table_ctx[entry_idx].atf_idx;
 	if (ttbr_table[idx][i].is_used && memcmp(ttbr_table[idx][i].uuid, uuid_str, UUID_STR_LENGTH) == 0)
 	{
-		// WARN("idx = %d, i = %d\n", idx, i);
+		// NOTICE("idx = %d, i = %d\n", idx, i);
 		return &ttbr_table[idx][i];
 	}
 
